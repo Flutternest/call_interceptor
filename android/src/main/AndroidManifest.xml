@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.iamsahilsonawane.call_interceptor">
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <application>
+        <service
+            android:name=".CallInterceptorBackgroundService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.iamsahilsonawane.call_interceptor.EXECUTE_RECEIVER"/>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+        <provider
+            android:name=".CallInterceptorInitProvider"
+            android:authorities="${applicationId}.callinterceptorinitprovider"
+            android:exported="false"
+            android:initOrder="100" />
+    </application>
+</manifest>
